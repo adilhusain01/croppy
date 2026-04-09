@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Chivo:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap");
 @import "tailwindcss";
 
 :root {
@@ -9,18 +10,22 @@
   --teal-500: #11998e;
   --teal-600: #0e857d;
   --teal-700: #0a6a65;
+  --font-chivo: "Chivo";
+  --font-syne: "Syne";
 }
 
-@theme inline {
-  --color-background: var(--app-bg);
-  --color-foreground: var(--ink);
-  --font-sans: var(--font-chivo);
-  --font-mono:
-    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
-    "Courier New", monospace;
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
 }
 
 body {
+  margin: 0;
   background: var(--app-bg);
   color: var(--ink);
   font-family: var(--font-chivo), "Trebuchet MS", sans-serif;

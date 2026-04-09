@@ -1,15 +1,13 @@
-"use client";
-
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Cropper, { type Area } from "react-easy-crop";
-import { exportCroppedImage, type ExportMimeType } from "@/lib/crop-image";
+import { exportCroppedImage, type ExportMimeType } from "../lib/crop-image";
 import {
   DEFAULT_PLATFORM_ID,
   DEFAULT_PRESET_ID,
   getGroupById,
   getPresetById,
   PLATFORM_PRESET_GROUPS,
-} from "@/lib/presets";
+} from "../lib/presets";
 
 const OUTPUT_FORMATS = {
   jpeg: {
@@ -45,7 +43,7 @@ function createFileName(
   return `${cleanName || "croppy-export"}-${presetId}.${extension}`;
 }
 
-export default function Home() {
+export default function App() {
   const [selectedPlatformId, setSelectedPlatformId] =
     useState(DEFAULT_PLATFORM_ID);
   const [selectedPresetId, setSelectedPresetId] = useState(DEFAULT_PRESET_ID);

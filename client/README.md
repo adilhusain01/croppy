@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Croppy (Vite + React)
 
-## Getting Started
+Croppy is a client-side social media image crop studio. Upload once, export multiple platform-specific sizes.
 
-First, run the development server:
+## What Croppy Does
+
+- Runs fully in-browser (no server image uploads)
+- Supports major social/web presets (YouTube, Instagram, X, LinkedIn, Facebook, TikTok, Pinterest, Snapchat, Threads, Reddit, OG)
+- Provides interactive crop controls with zoom and rotation
+- Exports high-resolution JPG, PNG, and WEBP output
+- Includes safe-zone overlays for relevant presets (for example YouTube banner visibility)
+
+## Scripts
+
+- `npm run dev` starts the Vite dev server
+- `npm run build` runs TypeScript checks and creates a production build
+- `npm run preview` serves the production build locally
+- `npm run lint` runs ESLint across the project
+
+## Local Development
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Start the dev server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Open the app:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+`http://localhost:5173`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Run From Repo Root
 
-## Learn More
+If your terminal is at the repository root (`Croppy/`) instead of `Croppy/client/`, use:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm --prefix /Users/adilhusain/Downloads/Croppy/client run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tech Stack
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- React 19
+- Vite 7
+- TypeScript
+- Tailwind CSS v4 utilities (via `@import "tailwindcss"`)
+- `react-easy-crop` for crop interactions
 
-## Deploy on Vercel
+## Project Layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `src/App.tsx`: main Croppy UI
+- `src/styles.css`: theme and utility styling
+- `lib/presets.ts`: platform and dimension presets
+- `lib/crop-image.ts`: canvas export pipeline
+- `public/`: static assets (favicon)
