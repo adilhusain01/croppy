@@ -224,17 +224,31 @@ export default function App() {
             <p className="font-display text-2xl text-[var(--ink)]">
               {selectedPreset.label}
             </p>
-            <p className="text-sm text-[var(--muted-ink)]">
-              {selectedPreset.width.toLocaleString()} x{" "}
-              {selectedPreset.height.toLocaleString()} px
-            </p>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div className="rounded-xl border border-[var(--panel-border)] bg-[rgba(255,255,255,0.75)] px-3 py-2">
+                <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted-ink)]">
+                  Width
+                </p>
+                <p className="font-display text-xl text-[var(--ink)]">
+                  {selectedPreset.width}
+                </p>
+              </div>
+              <div className="rounded-xl border border-[var(--panel-border)] bg-[rgba(255,255,255,0.75)] px-3 py-2">
+                <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted-ink)]">
+                  Height
+                </p>
+                <p className="font-display text-xl text-[var(--ink)]">
+                  {selectedPreset.height}
+                </p>
+              </div>
+            </div>
             <p className="font-mono text-xs text-[var(--muted-ink)]">
               Aspect {aspectRatio.toFixed(3)} : 1
             </p>
           </div>
         </header>
 
-        <section className="grid gap-6 lg:grid-cols-[280px_1fr_280px]">
+        <section className="grid gap-6 lg:grid-cols-[320px_1fr]">
           <aside className="glass-panel grid content-start gap-4 p-4 sm:p-5">
             <div className="grid gap-2">
               <label className="control-label" htmlFor="platformSelect">
@@ -305,23 +319,91 @@ export default function App() {
               </span>
             </label>
 
-            <div className="grid grid-cols-2 gap-2 text-sm">
-              <div className="rounded-xl border border-[var(--panel-border)] bg-[rgba(255,255,255,0.75)] px-3 py-2">
-                <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted-ink)]">
-                  Width
-                </p>
-                <p className="font-display text-xl text-[var(--ink)]">
-                  {selectedPreset.width}
+            <div className="grid gap-4 rounded-2xl border border-[var(--panel-border)] bg-[rgba(255,255,255,0.75)] p-3">
+              <div className="grid gap-2">
+                <label className="control-label" htmlFor="zoomRange">
+                  Zoom ({zoom.toFixed(2)}x)
+                </label>
+                <input
+                  id="zoomRange"
+                  type="range"
+                  min={1}
+                  max={3.5}
+                  step={0.01}
+                  value={zoom}
+                  onChange={(event) => setZoom(Number(event.target.value))}
+                  className="control-range"
+                  disabled={!imageSource}
+                />
+              </div>
+
+              <div className="grid gap-2">
+                <label className="control-label" htmlFor="rotationRange">
+                  Rotation ({rotation.toFixed(0)}°)
+                </label>
+                <input
+                  id="rotationRange"
+                  type="range"
+                  min={0}
+                  max={360}
+                  step={1}
+                  value={rotation}
+                  onChange={(event) => setRotation(Number(event.target.value))}
+                  className="control-range"
+                  disabled={!imageSource}
+                />
+              </div>
+
+              <div className="grid gap-2">
+                <label className="control-label" htmlFor="formatSelect">
+                  Output format
+                </label>
+                <select
+                  id="formatSelect"
+                  value={outputFormat}
+                  onChange={(event) =>
+                    setOutputFormat(event.target.value as OutputFormatKey)
+                  }
+                  className="control-input"
+                >
+                  {(Object.keys(OUTPUT_FORMATS) as OutputFormatKey[]).map(
+                    (formatKey) => (
+                      <option key={formatKey} value={formatKey}>
+                        {OUTPUT_FORMATS[formatKey].label}
+                      </option>
+                    ),
+                  )}
+                </select>
+              </div>
+
+              <div className="grid gap-2">
+                <label className="control-label" htmlFor="qualityRange">
+                  Quality ({quality}%)
+                </label>
+                <input
+                  id="qualityRange"
+                  type="range"
+                  min={70}
+                  max={100}
+                  step={1}
+                  value={quality}
+                  onChange={(event) => setQuality(Number(event.target.value))}
+                  className="control-range"
+                  disabled={!imageSource || outputFormat === "png"}
+                />
+                <p className="text-xs text-[var(--muted-ink)]">
+                  PNG ignores quality to preserve full transparency.
                 </p>
               </div>
-              <div className="rounded-xl border border-[var(--panel-border)] bg-[rgba(255,255,255,0.75)] px-3 py-2">
-                <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-[var(--muted-ink)]">
-                  Height
-                </p>
-                <p className="font-display text-xl text-[var(--ink)]">
-                  {selectedPreset.height}
-                </p>
-              </div>
+
+              <button
+                type="button"
+                onClick={() => void exportImage()}
+                disabled={isExporting || !imageSource || !cropPixels}
+                className="rounded-2xl bg-[linear-gradient(120deg,var(--teal-600),var(--teal-700))] px-4 py-3 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-55"
+              >
+                {isExporting ? "Exporting..." : "Download Crop"}
+              </button>
             </div>
           </aside>
 
@@ -380,93 +462,6 @@ export default function App() {
               <p className="text-sm text-[var(--ink)]">{message}</p>
             </div>
           </section>
-
-          <aside className="glass-panel grid content-start gap-4 p-4 sm:p-5">
-            <div className="grid gap-2">
-              <label className="control-label" htmlFor="zoomRange">
-                Zoom ({zoom.toFixed(2)}x)
-              </label>
-              <input
-                id="zoomRange"
-                type="range"
-                min={1}
-                max={3.5}
-                step={0.01}
-                value={zoom}
-                onChange={(event) => setZoom(Number(event.target.value))}
-                className="control-range"
-                disabled={!imageSource}
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <label className="control-label" htmlFor="rotationRange">
-                Rotation ({rotation.toFixed(0)}°)
-              </label>
-              <input
-                id="rotationRange"
-                type="range"
-                min={0}
-                max={360}
-                step={1}
-                value={rotation}
-                onChange={(event) => setRotation(Number(event.target.value))}
-                className="control-range"
-                disabled={!imageSource}
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <label className="control-label" htmlFor="formatSelect">
-                Output format
-              </label>
-              <select
-                id="formatSelect"
-                value={outputFormat}
-                onChange={(event) =>
-                  setOutputFormat(event.target.value as OutputFormatKey)
-                }
-                className="control-input"
-              >
-                {(Object.keys(OUTPUT_FORMATS) as OutputFormatKey[]).map(
-                  (formatKey) => (
-                    <option key={formatKey} value={formatKey}>
-                      {OUTPUT_FORMATS[formatKey].label}
-                    </option>
-                  ),
-                )}
-              </select>
-            </div>
-
-            <div className="grid gap-2">
-              <label className="control-label" htmlFor="qualityRange">
-                Quality ({quality}%)
-              </label>
-              <input
-                id="qualityRange"
-                type="range"
-                min={70}
-                max={100}
-                step={1}
-                value={quality}
-                onChange={(event) => setQuality(Number(event.target.value))}
-                className="control-range"
-                disabled={!imageSource || outputFormat === "png"}
-              />
-              <p className="text-xs text-[var(--muted-ink)]">
-                PNG ignores quality to preserve full transparency.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => void exportImage()}
-              disabled={isExporting || !imageSource || !cropPixels}
-              className="rounded-2xl bg-[linear-gradient(120deg,var(--teal-600),var(--teal-700))] px-4 py-3 font-semibold text-white transition disabled:cursor-not-allowed disabled:opacity-55"
-            >
-              {isExporting ? "Exporting..." : "Download Crop"}
-            </button>
-          </aside>
         </section>
       </main>
     </div>
