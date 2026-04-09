@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+:root {
+  --app-bg: #f5f0e9;
+  --ink: #101f2e;
+  --muted-ink: #425063;
+  --panel: rgba(247, 244, 238, 0.82);
+  --panel-border: rgba(16, 31, 46, 0.16);
+  --teal-500: #11998e;
+  --teal-600: #0e857d;
+  --teal-700: #0a6a65;
+}
+
+@theme inline {
+  --color-background: var(--app-bg);
+  --color-foreground: var(--ink);
+  --font-sans: var(--font-chivo);
+  --font-mono:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+}
+
+body {
+  background: var(--app-bg);
+  color: var(--ink);
+  font-family: var(--font-chivo), "Trebuchet MS", sans-serif;
+}
+
+.font-display {
+  font-family: var(--font-syne), "Avenir Next", sans-serif;
+}
+
+.glass-panel {
+  border: 1px solid var(--panel-border);
+  border-radius: 1.5rem;
+  background: linear-gradient(
+    145deg,
+    rgba(255, 255, 255, 0.8),
+    rgba(246, 241, 232, 0.74)
+  );
+  box-shadow: 0 22px 50px rgba(8, 23, 36, 0.12);
+  backdrop-filter: blur(14px);
+}
+
+.control-label {
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.17em;
+  color: var(--muted-ink);
+}
+
+.control-input {
+  width: 100%;
+  border: 1px solid var(--panel-border);
+  border-radius: 0.85rem;
+  background: rgba(255, 255, 255, 0.76);
+  color: var(--ink);
+  padding: 0.65rem 0.75rem;
+  font-size: 0.9rem;
+  outline: none;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.control-input:focus-visible {
+  border-color: var(--teal-600);
+  box-shadow: 0 0 0 3px rgba(17, 153, 142, 0.2);
+}
+
+.control-range {
+  width: 100%;
+  accent-color: var(--teal-600);
+}
+
+@media (max-width: 640px) {
+  .glass-panel {
+    border-radius: 1.2rem;
+  }
+}
