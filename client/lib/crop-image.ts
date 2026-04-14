@@ -112,10 +112,8 @@ export async function exportCroppedImage(
     throw new Error("Could not create export context.");
   }
 
-  if (mimeType !== "image/png") {
-    resultContext.fillStyle = backgroundColor;
-    resultContext.fillRect(0, 0, targetWidth, targetHeight);
-  }
+  resultContext.fillStyle = backgroundColor;
+  resultContext.fillRect(0, 0, targetWidth, targetHeight);
 
   resultContext.drawImage(
     rotatedCanvas,

@@ -21,7 +21,77 @@ export type PlatformPresetGroup = {
   presets: CropPreset[];
 };
 
+const BASIC_ASPECT_RATIO_PRESETS: CropPreset[] = [
+  { id: "ratio-1-1", label: "1:1 (Square)", width: 1080, height: 1080 },
+  {
+    id: "ratio-4-3",
+    label: "4:3 (Standard Landscape)",
+    width: 1600,
+    height: 1200,
+  },
+  {
+    id: "ratio-3-2",
+    label: "3:2 (Classic Landscape)",
+    width: 1800,
+    height: 1200,
+  },
+  {
+    id: "ratio-5-4",
+    label: "5:4 (Large Format)",
+    width: 1500,
+    height: 1200,
+  },
+  {
+    id: "ratio-16-9",
+    label: "16:9 (Widescreen)",
+    width: 1920,
+    height: 1080,
+  },
+  {
+    id: "ratio-16-10",
+    label: "16:10 (Desktop)",
+    width: 1920,
+    height: 1200,
+  },
+  {
+    id: "ratio-21-9",
+    label: "21:9 (Ultrawide)",
+    width: 2520,
+    height: 1080,
+  },
+  { id: "ratio-2-1", label: "2:1 (Panorama)", width: 2000, height: 1000 },
+  {
+    id: "ratio-3-4",
+    label: "3:4 (Standard Portrait)",
+    width: 1200,
+    height: 1600,
+  },
+  {
+    id: "ratio-2-3",
+    label: "2:3 (Classic Portrait)",
+    width: 1200,
+    height: 1800,
+  },
+  {
+    id: "ratio-4-5",
+    label: "4:5 (Social Portrait)",
+    width: 1080,
+    height: 1350,
+  },
+  {
+    id: "ratio-9-16",
+    label: "9:16 (Vertical)",
+    width: 1080,
+    height: 1920,
+  },
+];
+
 export const PLATFORM_PRESET_GROUPS: PlatformPresetGroup[] = [
+  {
+    id: "ratios",
+    label: "Aspect Ratios",
+    presets: BASIC_ASPECT_RATIO_PRESETS,
+  },
   {
     id: "youtube",
     label: "YouTube",
@@ -311,8 +381,8 @@ export const PLATFORM_PRESET_GROUPS: PlatformPresetGroup[] = [
   },
 ];
 
-export const DEFAULT_PLATFORM_ID = PLATFORM_PRESET_GROUPS[0].id;
-export const DEFAULT_PRESET_ID = PLATFORM_PRESET_GROUPS[0].presets[0].id;
+export const DEFAULT_PLATFORM_ID = "ratios";
+export const DEFAULT_PRESET_ID = BASIC_ASPECT_RATIO_PRESETS[0].id;
 
 const flatPresetMap = new Map(
   PLATFORM_PRESET_GROUPS.flatMap((group) =>
