@@ -1,4 +1,4 @@
-# Croppy (Vite + React)
+# Croppy
 
 Croppy is a client-side social media image crop studio. Upload once, export multiple platform-specific sizes.
 
