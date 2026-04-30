@@ -40,7 +40,7 @@ npm run dev
 If your terminal is at the repository root (`Croppy/`) instead of `Croppy/client/`, use:
 
 ```bash
-npm --prefix /Users/adilhusain/Downloads/Croppy/client run dev
+npm --prefix /Users/adilhusain/Documents/Projects/Croppy/client run dev
 ```
 
 ## Tech Stack
