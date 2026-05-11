@@ -1039,7 +1039,7 @@ export default function App() {
                 className="flex items-center gap-2 rounded-full border border-[var(--panel-border)] bg-[rgba(255,255,255,0.5)] py-1 pl-1 pr-3 transition hover:bg-white"
               >
                 <img
-                  src="https://github.com/adilhusain01.png"
+                  src="https://pbs.twimg.com/profile_images/1947715281520103424/riYRziYF_400x400.jpg"
                   alt="Adil"
                   className="h-6 w-6 rounded-full"
                 />
@@ -1053,7 +1053,7 @@ export default function App() {
           <div className="flex md:justify-end">
             <div className="w-full md:w-auto">
               <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--muted-ink)]">
-                More from Adil
+                More by Adil
               </p>
               <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 md:grid-cols-1 md:gap-3 text-sm font-medium text-[var(--ink)]">
                 <li>
