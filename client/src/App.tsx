@@ -517,19 +517,28 @@ export default function App() {
 
       <main className="relative mx-auto flex w-full max-w-[1500px] flex-col gap-8 px-4 pb-12 pt-10 sm:px-8 lg:px-10">
         <header className="grid gap-5 rounded-[30px] border border-[var(--panel-border)] bg-[var(--panel)] p-6 shadow-[0_24px_80px_rgba(6,22,37,0.2)] backdrop-blur-lg md:grid-cols-[1.4fr_1fr] md:items-end">
-          <div>
-            <p className="font-mono text-[11px] uppercase tracking-[0.36em] text-[var(--teal-700)]">
-              Croppy Social Studio
-            </p>
-            <h1 className="font-display mt-2 text-3xl leading-[1.03] text-[var(--ink)] sm:text-5xl">
-              One upload,
-              <br />
-              every social format.
-            </h1>
-            <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted-ink)] sm:text-base">
-              Build crisp exports for banners, stories, thumbnails, and profile
-              avatars without leaving the browser.
-            </p>
+          <div className="flex h-full flex-col justify-between gap-6 pb-2">
+            <div className="flex items-center gap-3">
+              <img
+                src="/croppy.png"
+                alt="Croppy Logo"
+                className="h-8 w-8 rounded-lg"
+              />
+              <div className="font-display text-2xl text-[var(--ink)]">
+                Croppy
+              </div>
+            </div>
+            <div>
+              <h1 className="font-display text-3xl leading-[1.03] text-[var(--ink)] sm:text-5xl">
+                One upload,
+                <br />
+                every social format.
+              </h1>
+              <p className="mt-4 max-w-xl text-sm leading-relaxed text-[var(--muted-ink)] sm:text-base">
+                Crisp exports for banners, stories, thumbnails, and profile
+                avatars.
+              </p>
+            </div>
           </div>
 
           <div className="grid gap-3 rounded-2xl border border-[var(--panel-border)] bg-[rgba(255,255,255,0.66)] p-4">
@@ -1000,6 +1009,119 @@ export default function App() {
             </div>
           </aside>
         </section>
+
+        <footer className="mt-6 grid gap-8 rounded-[30px] border border-[var(--panel-border)] bg-[var(--panel)] p-6 shadow-[0_24px_80px_rgba(6,22,37,0.2)] backdrop-blur-lg md:grid-cols-2 lg:p-8">
+          <div className="flex flex-col justify-between gap-6">
+            <div>
+              <div className="flex items-center gap-3">
+                <img
+                  src="/croppy.png"
+                  alt="Croppy Logo"
+                  className="h-8 w-8 rounded-sm"
+                />
+                <h2 className="font-display text-2xl text-[var(--ink)]">
+                  Croppy
+                </h2>
+              </div>
+              <p className="mt-4 max-w-sm text-sm leading-relaxed text-[var(--muted-ink)]">
+                Built to fit images for every platform seamlessly. One upload,
+                every format.
+              </p>
+            </div>
+            <div className="flex items-center gap-3">
+              <p className="text-sm font-medium text-[var(--muted-ink)]">
+                Built by
+              </p>
+              <a
+                href="https://twitter.com/0xAdilHusain"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center gap-2 rounded-full border border-[var(--panel-border)] bg-[rgba(255,255,255,0.5)] py-1 pl-1 pr-3 transition hover:bg-white"
+              >
+                <img
+                  src="https://github.com/adilhusain01.png"
+                  alt="Adil"
+                  className="h-6 w-6 rounded-full"
+                />
+                <span className="text-sm font-bold text-[var(--ink)]">
+                  adil
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <div className="flex md:justify-end">
+            <div className="w-full md:w-auto">
+              <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--muted-ink)]">
+                More from Adil
+              </p>
+              <ul className="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 sm:grid-cols-3 md:grid-cols-1 md:gap-3 text-sm font-medium text-[var(--ink)]">
+                <li>
+                  <a
+                    href="https://saveposts.xyz"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition hover:text-[var(--teal-600)]"
+                  >
+                    SavePosts
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://takemeds.fit/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition hover:text-[var(--teal-600)]"
+                  >
+                    TakeMeds
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://bookboy.vercel.app/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition hover:text-[var(--teal-600)]"
+                  >
+                    Bookboy
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://spritelab.adilhusain.xyz/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition hover:text-[var(--teal-600)]"
+                  >
+                    SpriteLab
+                  </a>
+                </li>
+
+                <li>
+                  <a
+                    href="https://calchub.adilhusain.xyz/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition hover:text-[var(--teal-600)]"
+                  >
+                    CalcHub
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://cinemahint.com/"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="transition hover:text-[var(--teal-600)]"
+                  >
+                    CinemaHint
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </footer>
       </main>
     </div>
   );
