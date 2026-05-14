@@ -11,6 +11,7 @@ export type CropImageOptions = {
   mimeType: ExportMimeType;
   quality?: number;
   backgroundColor?: string;
+  transparent?: boolean;
 };
 
 function createImage(src: string): Promise<HTMLImageElement> {
@@ -82,6 +83,7 @@ export async function exportCroppedImage(
     mimeType,
     quality = 0.95,
     backgroundColor = "#ffffff",
+    transparent = false,
   } = options;
 
   const image = await createImage(imageSrc);
@@ -112,8 +114,10 @@ export async function exportCroppedImage(
     throw new Error("Could not create export context.");
   }
 
-  resultContext.fillStyle = backgroundColor;
-  resultContext.fillRect(0, 0, targetWidth, targetHeight);
+  if (!transparent) {
+    resultContext.fillStyle = backgroundColor;
+    resultContext.fillRect(0, 0, targetWidth, targetHeight);
+  }
 
   resultContext.drawImage(
     rotatedCanvas,

@@ -32,12 +32,13 @@ type OutputFormatKey = keyof typeof OUTPUT_FORMATS;
 type CustomInputMode = "ratio" | "pixels";
 
 const MAX_UPLOAD_BYTES = 25 * 1024 * 1024;
-const MIN_ZOOM = 0.2;
+const MIN_ZOOM = 0.1;
 const MAX_ZOOM = 3.5;
 const CROP_NUDGE_STEP = 2;
 const CUSTOM_RATIO_PRESET_ID = "ratio-custom";
 const DEFAULT_BACKGROUND_FILL_COLOR = "#000000";
 const MAX_CUSTOM_PIXEL_DIMENSION = 12000;
+const DEFAULT_TRANSPARENT_BACKGROUND = true;
 
 function createFileName(
   baseName: string,
@@ -183,7 +184,7 @@ export default function App() {
   const [zoom, setZoom] = useState(1);
   const [rotation, setRotation] = useState(0);
   const [cropPixels, setCropPixels] = useState<Area | null>(null);
-  const [outputFormat, setOutputFormat] = useState<OutputFormatKey>("jpeg");
+  const [outputFormat, setOutputFormat] = useState<OutputFormatKey>("png");
   const [quality, setQuality] = useState(92);
   const [customInputMode, setCustomInputMode] =
     useState<CustomInputMode>("ratio");
@@ -200,6 +201,9 @@ export default function App() {
   );
   const [backgroundFillColorInput, setBackgroundFillColorInput] = useState(
     DEFAULT_BACKGROUND_FILL_COLOR,
+  );
+  const [transparentBackground, setTransparentBackground] = useState(
+    DEFAULT_TRANSPARENT_BACKGROUND,
   );
   const [message, setMessage] = useState(
     "Drop an image and start slicing for every network.",
@@ -475,6 +479,7 @@ export default function App() {
         mimeType: format.mimeType,
         quality: quality / 100,
         backgroundColor: backgroundFillColor,
+        transparent: transparentBackground,
       });
 
       const objectUrl = URL.createObjectURL(blob);
@@ -964,7 +969,32 @@ export default function App() {
                 <label className="control-label" htmlFor="fillColorText">
                   Background fill color
                 </label>
-                <div className="grid grid-cols-[52px_1fr] gap-2">
+                <div className="flex items-center gap-2">
+                  <label className="flex items-center gap-2">
+                    <input
+                      type="checkbox"
+                      checked={transparentBackground}
+                      onChange={(event) => {
+                        setTransparentBackground(event.target.checked);
+                        if (event.target.checked && outputFormat !== "png") {
+                          setOutputFormat("png");
+                          setMessage(
+                            "Transparent background requires PNG format.",
+                          );
+                        }
+                      }}
+                      className="h-4 w-4 cursor-pointer rounded border-[var(--panel-border)]"
+                    />
+                    <span className="text-sm font-medium text-[var(--ink)]">
+                      Transparent
+                    </span>
+                  </label>
+                </div>
+                <div
+                  className={`grid grid-cols-[52px_1fr] gap-2 ${
+                    transparentBackground ? "opacity-50 pointer-events-none" : ""
+                  }`}
+                >
                   <input
                     id="fillColorPicker"
                     type="color"
@@ -974,7 +1004,8 @@ export default function App() {
                       setBackgroundFillColor(nextColor);
                       setBackgroundFillColorInput(nextColor);
                     }}
-                    className="h-10 w-full cursor-pointer rounded-lg border border-[var(--panel-border)] bg-white p-1"
+                    disabled={transparentBackground}
+                    className="h-10 w-full cursor-pointer rounded-lg border border-[var(--panel-border)] bg-white p-1 disabled:cursor-not-allowed disabled:opacity-50"
                     aria-label="Choose background fill color"
                   />
                   <input
@@ -991,7 +1022,8 @@ export default function App() {
                       }
                     }}
                     onBlur={onBackgroundFillColorTextBlur}
-                    className="control-input"
+                    disabled={transparentBackground}
+                    className="control-input disabled:cursor-not-allowed disabled:opacity-50"
                     placeholder="#000000"
                     spellCheck={false}
                   />
